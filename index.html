@@ -1,114 +1,470 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Mostar city</title>
-<meta name="description" content="A cinematic three-screen scroll story for Mostar city." />
-<link rel="icon" href="data:," />
-<link rel="stylesheet" href="styles.css" />
-<script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinematic Space-Travel Landing Page</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React 18 & Babel CDNs -->
+    <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+    <!-- Framer Motion CDN -->
+    <script src="https://unpkg.com/framer-motion@11.11.17/dist/framer-motion.js"></script>
+    <script>window.Motion = window.FramerMotion;</script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['"Instrument Serif"', 'serif'],
+                        body: ['"Barlow"', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        DEFAULT: '9999px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            font-family: 'Barlow', sans-serif;
+            overflow-x: hidden;
+        }
+        .liquid-glass {
+            background: rgba(255,255,255,0.01);
+            background-blend-mode: luminosity;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: none;
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .liquid-glass::before {
+            content: "";
+            position: absolute; inset: 0;
+            border-radius: inherit;
+            padding: 1.4px;
+            background: linear-gradient(180deg,
+                rgba(255,255,255,0.45) 0%,
+                rgba(255,255,255,0.15) 20%,
+                rgba(255,255,255,0) 40%,
+                rgba(255,255,255,0) 60%,
+                rgba(255,255,255,0.15) 80%,
+                rgba(255,255,255,0.45) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .liquid-glass-strong {
+            background: rgba(255,255,255,0.01);
+            background-blend-mode: luminosity;
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            border: none;
+            box-shadow: 4px 4px 4px rgba(0,0,0,0.05), inset 0 1px 1px rgba(255,255,255,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .liquid-glass-strong::before {
+            content: "";
+            position: absolute; inset: 0;
+            border-radius: inherit;
+            padding: 1.4px;
+            background: linear-gradient(180deg,
+                rgba(255,255,255,0.5) 0%,
+                rgba(255,255,255,0.2) 20%,
+                rgba(255,255,255,0) 40%,
+                rgba(255,255,255,0) 60%,
+                rgba(255,255,255,0.2) 80%,
+                rgba(255,255,255,0.5) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
-<main class="site-shell">
-  <section class="cinema-scroll" id="cinema" aria-label="Mostar cinematic scroll story">
-    <div class="stage">
-      <div class="world">
-        <img class="scene-img sky-img" src="https://raft-blast-61784561.figma.site/_assets/v11/16b5007d9c93971e26ffe4e0e3e37946f6bd538c.png" alt="" />
-        <header class="site-header" aria-label="Primary navigation">
-          <a class="site-logo" href="#cinema">Bosnia and Herzegovina</a>
-          <nav class="site-nav" aria-label="Main menu">
-            <a href="#cinema">Intro</a>
-            <a href="#bridge">Bridge</a>
-            <a href="#bazaar">Bazaar</a>
-            <a href="#routes">Routes</a>
-          </nav>
-          <button class="language-switcher" aria-label="Change language">
-            <span>EN</span>
-            <span aria-hidden="true">⌄</span>
-          </button>
-        </header>
-        <div class="back-stack">
-          <img class="scene-img back-img back-four" src="https://raft-blast-61784561.figma.site/_assets/v11/8a7f8af50e0ce92ec2e228e7b0b4112178c51cf1.png" alt="" />
-          <section class="sights-slider" aria-label="Mostar sights slider">
-            <div class="sights-track">
-              <article class="sight-card" tabindex="0" role="button" aria-label="Open Stari Most card">
-                <span class="sight-kicker">Old Bridge</span>
-                <img class="sight-pin" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260730_230438_d526b8b6-8a2e-4e3b-9993-3908acae03a7.png" alt="" />
-                <h3>Stari Most</h3>
-                <p>The stone arch over the Neretva and Mostar's main landmark.</p>
-              </article>
-              <article class="sight-card" tabindex="0" role="button" aria-label="Open Kujundziluk card">
-                <span class="sight-kicker">Bazaar Street</span>
-                <img class="sight-pin" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260730_230442_140bc25b-b165-4249-904a-f708bff6970e.png" alt="" />
-                <h3>Kujundziluk</h3>
-                <p>Copper shops, souvenirs, and the old bazaar lane by the bridge.</p>
-              </article>
-              <article class="sight-card" tabindex="0" role="button" aria-label="Open Koski Mehmed Pasha Mosque card">
-                <span class="sight-kicker">Viewpoint</span>
-                <img class="sight-pin" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260730_230448_825949c9-ccdb-4857-b4a6-e349eccc9010.png" alt="" />
-                <h3>Koski Mehmed Pasha Mosque</h3>
-                <p>A classic minaret view back toward Stari Most and the river.</p>
-              </article>
-              <article class="sight-card" tabindex="0" role="button" aria-label="Open Kajtaz House card">
-                <span class="sight-kicker">Ottoman House</span>
-                <img class="sight-pin" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260730_230438_d526b8b6-8a2e-4e3b-9993-3908acae03a7.png" alt="" />
-                <h3>Kajtaz House</h3>
-                <p>A preserved residential house showing Mostar's Ottoman layers.</p>
-              </article>
-              <article class="sight-card" tabindex="0" role="button" aria-label="Open War Photo Exhibition card">
-                <span class="sight-kicker">Museum</span>
-                <img class="sight-pin" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260730_230442_140bc25b-b165-4249-904a-f708bff6970e.png" alt="" />
-                <h3>War Photo Exhibition</h3>
-                <p>A compact, moving stop for context on the city's recent history.</p>
-              </article>
-            </div>
-          </section>
-          <img class="scene-img back-img back-bazaar" src="https://raft-blast-61784561.figma.site/_assets/v11/864afe00e41e2fa20a5aa546e15cb807e0f81384.png" alt="" />
-        </div>
-        <div class="sights-controls" aria-label="Slider controls">
-          <button class="sight-nav sight-prev" aria-label="Previous sight">←</button>
-          <button class="sight-nav sight-next" aria-label="Next sight">→</button>
-        </div>
-        <h1 class="hero-title">MOSTAR</h1>
-        <img class="scene-img splitframe-img splitframe-left" src="https://raft-blast-61784561.figma.site/_assets/v11/7536d7b60a1fce482cf6edf3f0bffd3bad5d0f8a.png" alt="" />
-        <img class="scene-img splitframe-img splitframe-right" src="https://raft-blast-61784561.figma.site/_assets/v11/392db6a6a6b98e868bd7f8d3f55bb719d51e5028.png" alt="" />
-        <img class="scene-img bridge-img" src="https://raft-blast-61784561.figma.site/_assets/v11/c6a6d8ef49bca43f708aa852692942c45ec950d4.png" alt="" />
-        <img class="scene-img frame-two-img" src="https://raft-blast-61784561.figma.site/_assets/v11/ba75252bab2b1c510987b74837770f7bc8a6b2d4.png" alt="" />
-        <div class="shade"></div>
-      </div>
-      <section class="intro-copy" aria-label="Mostar overview">
-        <p>A stone arch, emerald water, and a compact old city made for slow mornings, late light, and one unforgettable crossing.</p>
-        <div class="hero-tags" aria-label="Mostar highlights">
-          <span>Old Bridge</span>
-          <span>Neretva River</span>
-          <span>UNESCO old city</span>
-        </div>
-      </section>
-      <section class="story-panel story-panel-bridge" id="bridge" aria-label="Old Bridge details">
-        <h2>The bridge is the city's compass.</h2>
-        <p>Stari Most links the banks of the Neretva and anchors a historic quarter shaped by Ottoman, Mediterranean, and European layers.</p>
-        <dl class="facts">
-          <div>
-            <dt>1566</dt>
-            <dd>Original bridge completed</dd>
-          </div>
-          <div>
-            <dt>2005</dt>
-            <dd>Old Bridge Area inscribed by UNESCO</dd>
-          </div>
-        </dl>
-      </section>
-      <section class="story-panel story-panel-bazaar" id="bazaar" aria-label="Old town details">
-        <h2>The bazaar keeps Mostar close.</h2>
-        <p>Stone lanes, mosque courtyards, copper stalls, and riverside coffee stay within a short walk of Stari Most.</p>
-        <button class="note-button" id="routes">
-          <span aria-hidden="true">↗</span>
-          <span>Open old town notes</span>
-        </button>
-      </section>
-    </div>
-  </section>
-</main>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { motion } = window.FramerMotion;
+
+        // Suppress Framer Motion list key warnings if any
+        React.useEffect(() => {
+            const originalError = console.error;
+            console.error = (...args) => {
+                if (typeof args[0] === 'string' && args[0].includes('Framer Motion')) return;
+                originalError(...args);
+            };
+        }, []);
+
+        // FadingVideo Component with custom JS crossfade
+        const FadingVideo = ({ src, className, style }) => {
+            const videoRef = React.useRef(null);
+            const rafIdRef = React.useRef(null);
+            const fadingOutRef = React.useRef(false);
+
+            const FADE_MS = 500;
+            const FADE_OUT_LEAD = 0.55;
+
+            const fadeTo = React.useCallback((target, duration) => {
+                if (rafIdRef.current) {
+                    cancelAnimationFrame(rafIdRef.current);
+                }
+                const videoEl = videoRef.current;
+                if (!videoEl) return;
+
+                const startOpacity = parseFloat(videoEl.style.opacity || '0');
+                const startTime = performance.now();
+
+                const animate = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const currentOpacity = startOpacity + (target - startOpacity) * progress;
+                    videoEl.style.opacity = currentOpacity;
+
+                    if (progress < 1) {
+                        rafIdRef.current = requestAnimationFrame(animate);
+                    }
+                };
+                rafIdRef.current = requestAnimationFrame(animate);
+            }, []);
+
+            React.useEffect(() => {
+                const videoEl = videoRef.current;
+                if (!videoEl) return;
+
+                videoEl.style.opacity = '0';
+
+                const handleLoadedData = () => {
+                    videoEl.play().catch(() => {});
+                    fadeTo(1, FADE_MS);
+                };
+
+                const handleTimeUpdate = () => {
+                    if (!fadingOutRef.current && videoEl.duration) {
+                        const timeLeft = videoEl.duration - videoEl.currentTime;
+                        if (timeLeft <= FADE_OUT_LEAD && timeLeft > 0) {
+                            fadingOutRef.current = true;
+                            fadeTo(0, FADE_MS);
+                        }
+                    }
+                };
+
+                const handleEnded = () => {
+                    videoEl.style.opacity = '0';
+                    setTimeout(() => {
+                        videoEl.currentTime = 0;
+                        videoEl.play().catch(() => {});
+                        fadingOutRef.current = false;
+                        fadeTo(1, FADE_MS);
+                    }, 100);
+                };
+
+                videoEl.addEventListener('loadeddata', handleLoadedData);
+                videoEl.addEventListener('timeupdate', handleTimeUpdate);
+                videoEl.addEventListener('ended', handleEnded);
+
+                return () => {
+                    if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+                    videoEl.removeEventListener('loadeddata', handleLoadedData);
+                    videoEl.removeEventListener('timeupdate', handleTimeUpdate);
+                    videoEl.removeEventListener('ended', handleEnded);
+                };
+            }, [fadeTo]);
+
+            return (
+                <video
+                    ref={videoRef}
+                    src={src}
+                    muted
+                    playsInline
+                    preload="auto"
+                    className={className}
+                    style={{ ...style, opacity: 0, transition: 'none' }}
+                />
+            );
+        };
+
+        // BlurText Component
+        const BlurText = ({ text, className }) => {
+            const [inView, setInView] = React.useState(false);
+            const ref = React.useRef(null);
+
+            React.useEffect(() => {
+                const observer = new IntersectionObserver(([entry]) => {
+                    if (entry.isIntersecting) {
+                        setInView(true);
+                        observer.disconnect();
+                    }
+                }, { threshold: 0.1 });
+                if (ref.current) observer.observe(ref.current);
+                return () => observer.disconnect();
+            }, []);
+
+            const words = text.split(" ");
+            return (
+                <p ref={ref} className={className} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', rowGap: '0.1em' }}>
+                    {words.map((word, i) => (
+                        <motion.span
+                            key={i}
+                            initial={{ filter: 'blur(10px)', opacity: 0, y: 50 }}
+                            animate={inView ? {
+                                filter: ['blur(10px)', 'blur(5px)', 'blur(0px)'],
+                                opacity: [0, 0.5, 1],
+                                y: [50, -5, 0]
+                            } : {}}
+                            transition={{
+                                duration: 0.7,
+                                times: [0, 0.5, 1],
+                                ease: 'easeOut',
+                                delay: (i * 100) / 1000
+                            }}
+                            style={{ display: 'inline-block', marginRight: '0.28em' }}
+                        >
+                            {word}
+                        </motion.span>
+                    ))}
+                </p>
+            );
+        };
+
+        // App Component
+        const App = () => {
+            return (
+                <div className="w-full bg-black min-h-screen text-white">
+                    {/* Navbar */}
+                    <nav className="fixed top-4 px-8 lg:px-16 z-50 w-full flex items-center justify-between pointer-events-none">
+                        <div className="pointer-events-auto w-12 h-12 liquid-glass rounded-full flex items-center justify-center font-heading italic text-2xl text-white">
+                            a
+                        </div>
+                        <div className="pointer-events-auto hidden md:flex items-center liquid-glass px-1.5 py-1.5 rounded-full gap-1">
+                            {['Home', 'Voyages', 'Worlds', 'Innovation', 'Plan Launch'].map((item, idx) => (
+                                <a key={idx} href={`#${item.toLowerCase()}`} className="px-3 py-2 text-sm font-medium text-white/90 font-body hover:text-white transition">
+                                    {item}
+                                </a>
+                            ))}
+                            <button className="bg-white text-black px-4 py-2 text-sm font-medium rounded-full whitespace-nowrap flex items-center gap-1.5 hover:bg-white/90 transition ml-1">
+                                Claim a Spot
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M7 7h10v10"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div className="w-12 h-12"></div>
+                    </nav>
+
+                    {/* Section 1 — Hero */}
+                    <section className="relative w-full h-screen overflow-hidden flex flex-col justify-between">
+                        <FadingVideo
+                            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4"
+                            className="absolute left-1/2 top-0 -translate-x-1/2 object-cover object-top z-0"
+                            style={{ width: "120%", height: "120%" }}
+                        />
+
+                        {/* Hero Content */}
+                        <div className="relative z-10 flex-1 flex flex-col items-center justify-center pt-24 px-4 text-center">
+                            <motion.div
+                                initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+                                animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
+                                className="liquid-glass rounded-full p-1 pl-1 pr-4 flex items-center gap-2 mb-6 cursor-pointer"
+                            >
+                                <span className="bg-white text-black px-3 py-1 rounded-full text-xs font-semibold">New</span>
+                                <span className="text-sm text-white/90 font-body pr-3">Maiden Crewed Voyage to Mars Arrives 2026</span>
+                            </motion.div>
+
+                            <BlurText
+                                text="Venture Past Our Sky Across the Universe"
+                                className="text-6xl md:text-7xl lg:text-[5.5rem] font-heading italic text-white leading-[0.8] max-w-2xl justify-center tracking-[-4px]"
+                            />
+
+                            <motion.p
+                                initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+                                animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.8, ease: 'easeOut' }}
+                                className="mt-4 text-sm md:text-base text-white max-w-2xl font-body font-light leading-tight"
+                            >
+                                Discover the universe in ways once unimaginable. Our pioneering vessels and breakthrough engineering bring deep-space exploration within reach—secure and extraordinary.
+                            </motion.p>
+
+                            <motion.div
+                                initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+                                animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 1.1, ease: 'easeOut' }}
+                                className="flex items-center gap-6 mt-6"
+                            >
+                                <button className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium text-white flex items-center gap-2 hover:scale-105 transition">
+                                    Start Your Voyage
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M7 7h10v10"/>
+                                    </svg>
+                                </button>
+                                <button className="flex items-center gap-2 text-white text-sm font-medium hover:text-white/80 transition">
+                                    <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+                                        <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                                            <polygon points="6,4 20,12 6,20"/>
+                                        </svg>
+                                    </span>
+                                    View Liftoff
+                                </button>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+                                animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 1.3, ease: 'easeOut' }}
+                                className="flex items-stretch gap-4 mt-8"
+                            >
+                                <div className="liquid-glass p-5 w-[220px] rounded-[1.25rem] flex flex-col justify-between text-left">
+                                    <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white">
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10"/><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2"/>
+                                        </svg>
+                                    </div>
+                                    <div className="mt-4">
+                                        <div className="text-4xl font-heading italic text-white tracking-[-1px] leading-none">34.5 Min</div>
+                                        <div className="text-xs text-white font-body font-light mt-2">Average Videos Watch Time</div>
+                                    </div>
+                                </div>
+                                <div className="liquid-glass p-5 w-[220px] rounded-[1.25rem] flex flex-col justify-between text-left">
+                                    <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white">
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                        </svg>
+                                    </div>
+                                    <div className="mt-4">
+                                        <div className="text-4xl font-heading italic text-white tracking-[-1px] leading-none">2.8B+</div>
+                                        <div className="text-xs text-white font-body font-light mt-2">Users Across the Globe</div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </div>
+
+                        {/* Partners */}
+                        <motion.div
+                            initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+                            animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 1.4, ease: 'easeOut' }}
+                            className="relative z-10 flex flex-col items-center gap-4 pb-8"
+                        >
+                            <div className="liquid-glass rounded-full px-3.5 py-1 text-xs font-medium text-white font-body">
+                                Collaborating with top aerospace pioneers globally
+                            </div>
+                            <div className="flex items-center gap-12 md:gap-16 text-2xl md:text-3xl font-heading italic text-white tracking-tight">
+                                <span>Aeon</span> · <span>Vela</span> · <span>Apex</span> · <span>Orbit</span> · <span>Zeno</span>
+                            </div>
+                        </motion.div>
+                    </section>
+
+                    {/* Section 2 — Capabilities */}
+                    <section className="relative min-h-screen w-full bg-black text-white flex flex-col justify-between overflow-hidden">
+                        <FadingVideo
+                            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_094631_d30ab262-45ee-4b7d-99f3-5d5848c8ef13.mp4"
+                            className="absolute inset-0 w-full h-full object-cover z-0"
+                        />
+
+                        <div className="relative z-10 px-8 md:px-16 lg:px-20 pt-24 pb-16 flex flex-col flex-1 justify-between">
+                            <div className="mb-auto">
+                                <div className="text-sm font-body text-white/80 mb-6">// Capabilities</div>
+                                <h2 className="font-heading italic text-white text-6xl md:text-7xl lg:text-[6rem] leading-[0.9] tracking-[-3px]">
+                                    Production<br />evolved
+                                </h2>
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+                                    {/* Card 1 */}
+                                    <div className="liquid-glass rounded-[1.25rem] p-6 min-h-[360px] flex flex-col justify-between">
+                                        <div className="flex items-start justify-between gap-4">
+                                            <div className="w-[44px] h-[44px] liquid-glass rounded-[0.75rem] flex items-center justify-center flex-shrink-0">
+                                                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21H5Zm1-4h12l-3.75-5-3 4L9 13l-3 4Z"/>
+                                                </svg>
+                                            </div>
+                                            <div className="flex flex-wrap justify-end gap-1.5 max-w-[70%]">
+                                                {['Natural Context', 'Photo Realism', 'Infinite Settings', 'Eco-Vibe'].map((tag, i) => (
+                                                    <span key={i} className="liquid-glass rounded-full px-3 py-1 text-[11px] text-white/90 font-body whitespace-nowrap">
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className="mt-6">
+                                            <h3 className="font-heading italic text-white text-3xl md:text-4xl tracking-[-1px] leading-none">AI Scenery</h3>
+                                            <p className="mt-3 text-sm text-white/90 font-body font-light leading-snug max-w-[32ch]">
+                                                AI analyzes your product to create indistinguishable natural environments — from Icelandic cliffs to misty forests.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Card 2 */}
+                                    <div className="liquid-glass rounded-[1.25rem] p-6 min-h-[360px] flex flex-col justify-between">
+                                        <div className="flex items-start justify-between gap-4">
+                                            <div className="w-[44px] h-[44px] liquid-glass rounded-[0.75rem] flex items-center justify-center flex-shrink-0">
+                                                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M4 6.47 5.76 10H20v8H4V6.47M22 4h-4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.89-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4Z"/>
+                                                </svg>
+                                            </div>
+                                            <div className="flex flex-wrap justify-end gap-1.5 max-w-[70%]">
+                                                {['Scale Fast', 'Visual Consistency', 'Time Saver', 'Ready to Post'].map((tag, i) => (
+                                                    <span key={i} className="liquid-glass rounded-full px-3 py-1 text-[11px] text-white/90 font-body whitespace-nowrap">
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className="mt-6">
+                                            <h3 className="font-heading italic text-white text-3xl md:text-4xl tracking-[-1px] leading-none">Batch Production</h3>
+                                            <p className="mt-3 text-sm text-white/90 font-body font-light leading-snug max-w-[32ch]">
+                                                Style your entire product line in minutes. Create a unified visual identity for catalogues and social media without weeks of retouching.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Card 3 */}
+                                    <div className="liquid-glass rounded-[1.25rem] p-6 min-h-[360px] flex flex-col justify-between">
+                                        <div className="flex items-start justify-between gap-4">
+                                            <div className="w-[44px] h-[44px] liquid-glass rounded-[0.75rem] flex items-center justify-center flex-shrink-0">
+                                                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1Zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7Z"/>
+                                                </svg>
+                                            </div>
+                                            <div className="flex flex-wrap justify-end gap-1.5 max-w-[70%]">
+                                                {['Ray Tracing', 'Physical Shadows', 'Studio Quality', 'Sunlight Sync'].map((tag, i) => (
+                                                    <span key={i} className="liquid-glass rounded-full px-3 py-1 text-[11px] text-white/90 font-body whitespace-nowrap">
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className="mt-6">
+                                            <h3 className="font-heading italic text-white text-3xl md:text-4xl tracking-[-1px] leading-none">Smart Lighting</h3>
+                                            <p className="mt-3 text-sm text-white/90 font-body font-light leading-snug max-w-[32ch]">
+                                                Automatic lighting and material adjustment. Achieve flawless integration with realistic shadows and sunlight.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        };
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
 </body>
 </html>
